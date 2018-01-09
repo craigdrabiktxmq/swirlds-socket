@@ -6,10 +6,10 @@ RUN npm install -g @angular/cli
 
 RUN mkdir /home/node/app
 WORKDIR /home/node/app
-COPY zoo/package.json /home/node/app/package.json
+COPY client/package.json /home/node/app/package.json
 RUN npm install
 
-COPY zoo /home/node/app
+COPY client /home/node/app
 #RUN npm install
 
 RUN $(npm bin)/ng build
