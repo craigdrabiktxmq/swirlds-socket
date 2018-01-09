@@ -32,3 +32,9 @@ Reuse
 You are welcome to reuse/modify this code pursuant to the terms of the license file.  You'll want to copy the com.txmq.swirldsframework.messaging package into your application.  Next, define your transaction types and model objects.  On the server side, create an instance of TransactionServer to listen for client connections.  Finally, build out your REST API in the technology of your choosing and use SwirldsAdaptor to handle messaging between the Swirld and your REST API code.
 
 Here's the catch:  I don't know what's coming in the near term from Swirlds.  The public SDK only runs through the Swirlds browser, which I imagine will be changed at some point.  I don't know whether or not Swirlds has a connectivity paradigm in the works, or when it would arrive.  This demonstration could certainly be developed into a framework for enabling communication between Swirlds and other Java applications, and it could be adapted to allow web clients to directly message a Swirld via web socket.  It is probably also possible to expose actions on the Swirld directly via REST, though I haven't experimented with any of that yet.  The point is, I don't know how much development this is going to see, because it could all be obsolete tomorrow.  Having said that, I'm willing to look at suggestions and pull requests if someone wants to contribute to this code.
+
+Shameless Plug
+--------------
+TxMQ's Disruptive Technology Group consults and develops distributed ledger-based solutions on a number of platforms, including Swirlds.  If you have projects you're looking to build or need consulting services on Swirlds, Hyperledger, Ethereum, or blockchain/distributed ledger in general please reach out.
+
+craig.drabik@txmq.com
