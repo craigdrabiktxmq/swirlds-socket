@@ -13,8 +13,8 @@ import java.io.InputStream;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
 import com.txmq.socketdemo.SwirldsTransactionType;
-import com.txmq.socketdemo.messaging.SwirldsAdaptor;
-import com.txmq.socketdemo.messaging.SwirldsMessage;
+import com.txmq.swirldsframework.messaging.SwirldsAdaptor;
+import com.txmq.swirldsframework.messaging.SwirldsMessage;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;

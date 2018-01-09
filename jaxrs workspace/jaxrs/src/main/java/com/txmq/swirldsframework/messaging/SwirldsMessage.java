@@ -1,4 +1,4 @@
-package com.txmq.socketdemo.messaging;
+package com.txmq.swirldsframework.messaging;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

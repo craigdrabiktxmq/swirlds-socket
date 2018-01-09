@@ -18,7 +18,7 @@ import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.socketdemo.messaging.TransactionServer;
+import com.txmq.swirldsframework.messaging.TransactionServer;
 
 /**
  * This HelloSwirld creates a single transaction, consisting of the string "Hello Swirld", and then goes
