@@ -22,6 +22,7 @@ import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 import com.txmq.socketdemo.SocketDemoState;
+import com.txmq.socketdemo.http.CORSFilter;
 import com.txmq.swirldsframework.core.PlatformLocator;
 import com.txmq.swirldsframework.messaging.TransactionServer;
 
@@ -81,7 +82,10 @@ public class SocketDemoMain implements SwirldMain {
 		//Set up a REST endpoint as well
 		int port = platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 2000;
 		URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
-		ResourceConfig config = new ResourceConfig().packages("com.txmq.socketdemo.http");
+		ResourceConfig config = new ResourceConfig()
+				.packages("com.txmq.socketdemo.http")
+				.register(new CORSFilter());
+
 		HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
 	
 		

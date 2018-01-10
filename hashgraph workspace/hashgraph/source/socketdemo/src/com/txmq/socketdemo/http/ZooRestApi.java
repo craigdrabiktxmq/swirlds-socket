@@ -16,7 +16,7 @@ import com.txmq.swirldsframework.messaging.SwirldsMessage;
 
 import io.swagger.model.Animal;
 import io.swagger.model.Zoo;
-@Path("/")
+@Path("/HashgraphZoo/1.0.0")
 public class ZooRestApi {
 	@GET
 	@Path("/zoo")

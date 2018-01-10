@@ -28,7 +28,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 @Injectable()
 export class DefaultService {
 
-    protected basePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
+    protected basePath = 'http://localhost:52205/HashgraphZoo/1.0.0';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
