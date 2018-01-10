@@ -32,6 +32,10 @@ import java.util.Objects;
  * Animal
  */
 public class Animal implements Serializable  {
+	/*public Animal() {
+		
+	}
+	*/
   private String name = null;
 
   private String species = null;

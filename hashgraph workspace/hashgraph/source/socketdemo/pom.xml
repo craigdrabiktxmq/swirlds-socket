@@ -37,12 +37,17 @@
   		<groupId>org.glassfish.jersey.containers</groupId>
   		<artifactId>jersey-container-grizzly2-http</artifactId>
   	</dependency>
+  	<!--
   	<dependency>
 	    <groupId>org.glassfish.jersey.media</groupId>
-	    <artifactId>jersey-media-moxy</artifactId>
- 	</dependency>
+    		<artifactId>jersey-media-moxy</artifactId>
+	</dependency>
+	-->
+	<dependency>
+  		<groupId>org.glassfish.jersey.media</groupId>
+  		<artifactId>jersey-media-json-jackson</artifactId>
+  	</dependency>
   </dependencies>
-  <!-- 
   <build>
   	<plugins>
   		<plugin>
@@ -72,5 +77,4 @@
 		</plugin>
   	</plugins>
   </build>
-  -->
 </project>

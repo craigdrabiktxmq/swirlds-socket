@@ -28,6 +28,7 @@ import com.txmq.swirldsframework.messaging.TransactionServer;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
@@ -81,11 +82,14 @@ public class SocketDemoMain implements SwirldMain {
 		
 		//Set up a REST endpoint as well
 		int port = platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 2000;
-		URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
+		//URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
+		URI baseUri = UriBuilder.fromUri("http://0.0.0.0").port(port).build();
 		ResourceConfig config = new ResourceConfig()
 				.packages("com.txmq.socketdemo.http")
-				.register(new CORSFilter());
+				.register(new CORSFilter())
+				.register(JacksonFeature.class);
 
+		System.out.println("Attempting to start Grizzly on " + baseUri);
 		HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
 	
 		

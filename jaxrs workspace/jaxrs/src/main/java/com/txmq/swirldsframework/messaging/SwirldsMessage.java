@@ -13,6 +13,29 @@ public class SwirldsMessage implements Serializable {
 	public SwirldsTransactionType transactionType;
 	public Serializable payload;
 	
+	public SwirldsMessage() {
+		super();
+	}
+	
+	/**
+	 * Initialize this message with the supplied transaction type.
+	 * @param transactionType
+	 */
+	public SwirldsMessage(SwirldsTransactionType transactionType) {
+		super();
+		this.transactionType = transactionType;				
+	}
+	
+	/**
+	 * Initialize this message with the supplied transaction type and payload.
+	 * @param transactionType
+	 */
+	public SwirldsMessage(SwirldsTransactionType transactionType, Serializable payload) {
+		super();
+		this.transactionType = transactionType;				
+		this.payload = payload;
+	}
+	
 	/**
 	 * Serialize this transaction to a sequence of bytes
 	 * 
