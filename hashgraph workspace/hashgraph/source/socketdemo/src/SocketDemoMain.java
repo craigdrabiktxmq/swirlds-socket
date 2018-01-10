@@ -10,7 +10,11 @@
  * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+
+import javax.ws.rs.core.UriBuilder;
 
 import com.swirlds.platform.Browser;
 import com.swirlds.platform.Console;
@@ -18,7 +22,12 @@ import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 import com.txmq.socketdemo.SocketDemoState;
+import com.txmq.swirldsframework.core.PlatformLocator;
 import com.txmq.swirldsframework.messaging.TransactionServer;
+
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * This HelloSwirld creates a single transaction, consisting of the string "Hello Swirld", and then goes
@@ -64,12 +73,17 @@ public class SocketDemoMain implements SwirldMain {
 
 	@Override
 	public void run() {
-		String myName = platform.getState().getAddressBookCopy()
-				.getAddress(selfId).getSelfName();
-
+		PlatformLocator.init(platform);
 		//Start up a new transaction server, which will listen for connections from the JAX-RS API
 		TransactionServer server = new TransactionServer(platform, platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 1000);
 		server.start();
+		
+		//Set up a REST endpoint as well
+		int port = platform.getState().getAddressBookCopy().getAddress(selfId).getPortExternalIpv4() + 2000;
+		URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
+		ResourceConfig config = new ResourceConfig().packages("com.txmq.socketdemo.http");
+		HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
+	
 		
 		while (true) {
 			try {
