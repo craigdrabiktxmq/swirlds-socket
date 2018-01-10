@@ -18,4 +18,5 @@ RemoteSystemsTempFiles
 .recommenders
 **/.recommenders
 hashgraph\ workspace/hashgraph/data/apps
+hashgraph\ workspace/hashgraph/data/lib
 **/target
