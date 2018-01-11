@@ -18,7 +18,8 @@ services:
       restart_policy: 
         condition: always   
     ports: 
-      - "51200-51299:51200-51299"   
+      - "51200-51299:51200-51299"
+      - "52200-52299:52200-52299"
   jaxrs:
     build: "./jaxrs workspace"
     depends_on:

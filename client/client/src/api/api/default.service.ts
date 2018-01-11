@@ -28,7 +28,22 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 @Injectable()
 export class DefaultService {
 
-    protected basePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
+    private hgBasePath = 'http://localhost:52205/HashgraphZoo/1.0.0';
+    private jaxBasePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
+    protected basePath = this.jaxBasePath;
+
+    public set useHashgraph(useHashgraph:Boolean) {
+        if (useHashgraph) {
+            this.basePath = this.hgBasePath;
+        } else {
+            this.basePath = this.jaxBasePath;
+        }
+    }
+
+    public get useHashgraph():Boolean {
+        return this.basePath === this.hgBasePath;
+    }
+    
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

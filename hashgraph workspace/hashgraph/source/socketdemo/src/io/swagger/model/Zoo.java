@@ -26,18 +26,26 @@
 package io.swagger.model;
 
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
 
 /**
  * Zoo
  */
-public class Zoo implements Serializable  {
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2018-01-08T17:35:13.100Z")
+public class Zoo  implements Serializable {
+  @JsonProperty("lions")
   private List<String> lions = null;
 
+  @JsonProperty("tigers")
   private List<String> tigers = null;
 
+  @JsonProperty("bears")
   private List<String> bears = null;
 
   public Zoo lions(List<String> lions) {
@@ -57,6 +65,7 @@ public class Zoo implements Serializable  {
    * Get lions
    * @return lions
    **/
+  @JsonProperty("lions")
   public List<String> getLions() {
     return lions;
   }
@@ -82,6 +91,7 @@ public class Zoo implements Serializable  {
    * Get tigers
    * @return tigers
    **/
+  @JsonProperty("tigers")
   public List<String> getTigers() {
     return tigers;
   }
@@ -107,6 +117,7 @@ public class Zoo implements Serializable  {
    * Get bears
    * @return bears
    **/
+  @JsonProperty("bears")
   public List<String> getBears() {
     return bears;
   }
