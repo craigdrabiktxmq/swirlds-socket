@@ -16,13 +16,20 @@ const appRoutes: Routes = [
   { path: '**', redirectTo: '/home' }
 ];
 
+/*
 const exoConfig:ExoConfig = {
   loadConfigFrom: undefined,
   defaultNodes: ['http://localhost:52204', 'http://localhost:52207'],
   apiPath: '/HashgraphZoo/1.0.0',
   endpointsServicePath: '/endpoints'
 } as ExoConfig;
-
+*/
+const exoConfig:ExoConfig = {
+  loadConfigFrom: '/assets/exo-config.json',
+  defaultNodes: null,
+  apiPath: null,
+  endpointsServicePath: null
+} as ExoConfig;
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +48,7 @@ const exoConfig:ExoConfig = {
     MatRadioModule,
     FormsModule,
     FlexLayoutModule,
-    ExoModule
+    ExoModule.forRoot(exoConfig)
   ],
   providers: [DefaultService],
   bootstrap: [AppComponent]
