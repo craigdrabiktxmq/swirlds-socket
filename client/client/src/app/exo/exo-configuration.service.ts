@@ -50,7 +50,7 @@ export class ExoConfigurationService {
     debugger;
     this.httpClient.get('/assets/exo-config.json').subscribe(
       result => {
-        debugger;
+        this._config = result as ExoConfig;
         this.configReady.next(true);
       },
       error => {

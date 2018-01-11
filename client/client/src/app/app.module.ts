@@ -41,7 +41,7 @@ const exoConfig:ExoConfig = {
     MatRadioModule,
     FormsModule,
     FlexLayoutModule,
-    ExoModule.forRoot(exoConfig)
+    ExoModule
   ],
   providers: [DefaultService],
   bootstrap: [AppComponent]

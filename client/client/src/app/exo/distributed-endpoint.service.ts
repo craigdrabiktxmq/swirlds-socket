@@ -14,7 +14,6 @@ export class DistributedEndpointService {
   protected endpoints:Array<string>;
 
   constructor(protected httpClient:HttpClient, protected configService:ExoConfigurationService) { 
-    debugger;
     configService.configReady.subscribe(ready => {
       const config = configService.config;
       this.endpoints = config.defaultNodes.map(endpoint => endpoint);
@@ -22,7 +21,6 @@ export class DistributedEndpointService {
         .get(this.endpoints[0] + config.apiPath + config.endpointsServicePath)
         .subscribe( 
           result => { 
-            debugger; 
             this.endpoints = result as Array<string>; 
             this.endpointsReady.next(true);
           },
