@@ -13,7 +13,7 @@
  * 
  * exo-config.json is basically a JSON representation of this class.
  */
-export class ExoConfig {
+export class ExoConfig extends Object {
     /**
      * Exo will try to load its configuration via HTTP from this URL.
      * If a URL is not provided, Exo will load its configuration from

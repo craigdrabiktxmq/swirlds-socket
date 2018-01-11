@@ -20,15 +20,22 @@ export class ExoConfigurationService {
   constructor(private httpClient:HttpClient) { }
 
   public init(config:ExoConfig) {
-    debugger;
     if (config) {
       this._config = config;
       if (config.loadConfigFrom) {
         this.httpClient.get(config.loadConfigFrom).subscribe(
           result => {
             //Use the loaded config, and override those values with any that were passed into the init method
+            //TODO:  Override values
             debugger;
-            this._config = result as ExoConfig;
+            let newConfig:ExoConfig = result as ExoConfig;
+            for (let property in this._config) {
+              //Yes, I mean != and not !==
+              if (this._config.hasOwnProperty(property) && this._config[property] != undefined) {
+                newConfig[property] = this._config[property];
+              }
+            }
+            this._config = newConfig;
             this.configReady.next(true);
           },
           error => {
@@ -47,7 +54,6 @@ export class ExoConfigurationService {
   }
 
   private loadConfigFromAssets():void {
-    debugger;
     this.httpClient.get('/assets/exo-config.json').subscribe(
       result => {
         this._config = result as ExoConfig;

@@ -26,7 +26,7 @@ const exoConfig:ExoConfig = {
 */
 const exoConfig:ExoConfig = {
   loadConfigFrom: '/assets/exo-config.json',
-  defaultNodes: null,
+  defaultNodes: ['http://localhost:52206'],
   apiPath: null,
   endpointsServicePath: null
 } as ExoConfig;

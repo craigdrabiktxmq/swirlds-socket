@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private service:DefaultService, endpointService:DistributedEndpointService) {
     endpointService.endpointsReady.subscribe(_ => {
-      debugger;
       this.refreshZoo();
       setInterval(() => this.refreshZoo(), 2000);
     });
