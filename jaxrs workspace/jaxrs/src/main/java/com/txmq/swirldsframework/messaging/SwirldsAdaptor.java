@@ -26,7 +26,8 @@ import javax.net.ssl.TrustManagerFactory;
 import com.txmq.socketdemo.SwirldsTransactionType;
 
 public class SwirldsAdaptor {
-	public static final String HOST = "0.0.0.0";
+	//public static final String HOST = "0.0.0.0";
+	public static final String HOST = "hashgraph";
 	public static final int PORT = 51204;
 	
 	private Socket socket;
