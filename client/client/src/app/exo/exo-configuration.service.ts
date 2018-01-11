@@ -26,8 +26,6 @@ export class ExoConfigurationService {
         this.httpClient.get(config.loadConfigFrom).subscribe(
           result => {
             //Use the loaded config, and override those values with any that were passed into the init method
-            //TODO:  Override values
-            debugger;
             let newConfig:ExoConfig = result as ExoConfig;
             for (let property in this._config) {
               //Yes, I mean != and not !==
