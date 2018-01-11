@@ -10,16 +10,17 @@ import { useAnimation } from '@angular/core/src/animation/dsl';
 })
 export class HomeComponent implements OnInit {
 
-  private animalName:String = '';
-  private animalSpecies:String;
+  public animalName:String = '';
+  public animalSpecies:String;
 
-  private zoo:Zoo;
+  public zoo:Zoo;
   
   public get useHashgraph():string {
     return this.service.useHashgraph.toString();
   }
 
   public set useHashgraph(useHashgraph:string) {
+    debugger;
     this.service.useHashgraph = useHashgraph === 'true';
   }
 

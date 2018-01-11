@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ApiModule, DefaultService } from '../api/index';
 import { FormsModule } from '@angular/forms';
+import { DistributedEndpointService } from './distributed-endpoint.service';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,7 +33,7 @@ const appRoutes: Routes = [
     FormsModule,
     FlexLayoutModule
   ],
-  providers: [DefaultService],
+  providers: [DistributedEndpointService, DefaultService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

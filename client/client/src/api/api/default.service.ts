@@ -23,37 +23,43 @@ import { Animal } from '../model/animal';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { DistributedEndpointService } from '../../app/distributed-endpoint.service';
 
 
 @Injectable()
 export class DefaultService {
 
-    private hgBasePath = 'http://localhost:52205/HashgraphZoo/1.0.0';
-    private jaxBasePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
-    protected basePath = this.jaxBasePath;
+    private apiRootPath:string = '/HashgraphZoo/1.0.0';
+    private jaxBasePath = 'http://localhost:8080' + this.apiRootPath;
+    
+    public useHashgraph:boolean = true;
 
-    public set useHashgraph(useHashgraph:Boolean) {
-        if (useHashgraph) {
-            this.basePath = this.hgBasePath;
+    /**
+     * Hook for wiring in the distributed endpoint service
+     */
+    protected get basePath():string {
+        if (!this.useHashgraph) {
+            return this.jaxBasePath; 
         } else {
-            this.basePath = this.jaxBasePath;
+            return this.distributedEndpoitnService.getBaseUrl() + this.apiRootPath;
         }
-    }
-
-    public get useHashgraph():Boolean {
-        return this.basePath === this.hgBasePath;
     }
     
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, 
+                protected distributedEndpoitnService: DistributedEndpointService,
+                @Optional()@Inject(BASE_PATH) basePath: string, 
+                @Optional() configuration: Configuration) {
         if (basePath) {
-            this.basePath = basePath;
+            //TODO:
+            //this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
+            //TODO
+            //this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -70,7 +76,6 @@ export class DefaultService {
         }
         return false;
     }
-
 
     /**
      * adds an animal to the zoo
