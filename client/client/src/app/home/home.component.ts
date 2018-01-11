@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DefaultService } from '../../api/index';
 import { Zoo } from '../../api/model/zoo';
 import { useAnimation } from '@angular/core/src/animation/dsl';
+import { DistributedEndpointService } from '../exo/distributed-endpoint.service';
 
 @Component({
   selector: 'app-home',
@@ -20,13 +21,15 @@ export class HomeComponent implements OnInit {
   }
 
   public set useHashgraph(useHashgraph:string) {
-    debugger;
     this.service.useHashgraph = useHashgraph === 'true';
   }
 
-  constructor(private service:DefaultService) {
-    this.refreshZoo();
-    setInterval(() => this.refreshZoo(), 2000);
+  constructor(private service:DefaultService, endpointService:DistributedEndpointService) {
+    endpointService.endpointsReady.subscribe(_ => {
+      debugger;
+      this.refreshZoo();
+      setInterval(() => this.refreshZoo(), 2000);
+    });
   }
 
   private addAnimal():void {

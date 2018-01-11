@@ -23,7 +23,7 @@ import { Animal } from '../model/animal';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
-import { DistributedEndpointService } from '../../app/distributed-endpoint.service';
+import { DistributedEndpointService } from '../../app/exo/distributed-endpoint.service';
 
 
 @Injectable()
