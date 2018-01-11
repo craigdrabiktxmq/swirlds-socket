@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,6 +67,14 @@ public class SocketDemoState implements SwirldState {
 	public synchronized List<String> getBears() {
 		return bears;
 	}
+	
+	private List<String> endpoints = Collections
+			.synchronizedList(new ArrayList<String>());
+
+	/** @return all the strings received so far from the network */
+	public synchronized List<String> getEndpoints() {
+		return endpoints;
+	}
 
 	// ///////////////////////////////////////////////////////////////////
 
@@ -109,6 +118,7 @@ public class SocketDemoState implements SwirldState {
 		lions = Collections.synchronizedList(new ArrayList<String>(((SocketDemoState) old).lions));
 		tigers = Collections.synchronizedList(new ArrayList<String>(((SocketDemoState) old).tigers));
 		bears= Collections.synchronizedList(new ArrayList<String>(((SocketDemoState) old).bears));
+		endpoints = Collections.synchronizedList(new ArrayList<String>(((SocketDemoState) old).endpoints));
 		addressBook = ((SocketDemoState) old).addressBook.copy();
 	}
 
@@ -132,6 +142,9 @@ public class SocketDemoState implements SwirldState {
 							this.bears.add(animal.getName());
 							break;
 					}						
+					break;
+				case ANNOUNCE_NODE:
+					this.endpoints.add((String) message.payload);
 					break;
 			}			
 		} catch (ClassNotFoundException e) {
