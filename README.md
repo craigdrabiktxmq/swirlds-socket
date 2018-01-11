@@ -1,7 +1,9 @@
-Hashgraph-Web Tier Communication
+Hashgraph-Web Application Communication
 ================================
 
-This project contains a demonstration of a web application communicating with a Swirld via a TLS-secured, authenticated socket.  The application tracks lions, tigers, and bears in a zoo.  Users can add animals to the zoo and see the updated state.  The zoo state is tracked in a Swirld, and adding an animal executes a transaction on the Swirld.
+This project contains a demonstration of a web application communicating with a Swirld.  The application tracks lions, tigers, and bears in a zoo.  Users can add animals to the zoo and see the updated state.  The zoo state is tracked in a Swirld, and adding an animal executes a transaction on the Swirld.  The demo supports two methods of communication:
+- Through a JAX-RS based REST API.  The JAX-RS application communicates with the Swirld via a TLS-secured, authenticated socket.  
+- Directly to the Swirld via a REST API embedded in the Swirld itself.
 
 To run the demo, install Docker, change into the root directory of the project (where the docker-compose.yml file lives) and run 
 
@@ -9,8 +11,8 @@ To run the demo, install Docker, change into the root directory of the project (
 
 Once each Docker container is up and running, you can point your browser at "localhost" and load up the zoo application.
 
-How It Works
-------------
+How the JAX-RS/Hashgraph Integration Works
+------------------------------------------
 
 Walking through the Swirld itself is outside the scope of what I'm trying to ddemonstrate, so if you're not familiar with how a Swirld works, please head over to swirlds.com and download the SDK and read the docs.
 
@@ -32,6 +34,18 @@ Reuse
 You are welcome to reuse/modify this code pursuant to the terms of the license file.  You'll want to copy the com.txmq.swirldsframework.messaging package into your application.  Next, define your transaction types and model objects.  On the server side, create an instance of TransactionServer to listen for client connections.  Finally, build out your REST API in the technology of your choosing and use SwirldsAdaptor to handle messaging between the Swirld and your REST API code.
 
 Here's the catch:  I don't know what's coming in the near term from Swirlds.  The public SDK only runs through the Swirlds browser, which I imagine will be changed at some point.  I don't know whether or not Swirlds has a connectivity paradigm in the works, or when it would arrive.  This demonstration could certainly be developed into a framework for enabling communication between Swirlds and other Java applications, and it could be adapted to allow web clients to directly message a Swirld via web socket.  It is probably also possible to expose actions on the Swirld directly via REST, though I haven't experimented with any of that yet.  The point is, I don't know how much development this is going to see, because it could all be obsolete tomorrow.  Having said that, I'm willing to look at suggestions and pull requests if someone wants to contribute to this code.
+
+
+How the Hashgraph REST API Works 
+--------------------------------
+
+The Hashgraph embedded REST API is based on Grizzly, which is a web server technology that is part of Java SE.  It lets us develop applications that can handle HTTP requests without deploying our Java application in a JEE server like Tomcat.  See http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/griz_jersey_intro/Grizzly-Jersey-Intro.html#section4 for a walkthrough of setting up a basic REST service using Grizzly.
+
+In the Hashgraph application code, the Grizzly REST service works as follows:
+- In SocketDemoMain, set up the Grizzly server itself and instantiate it.  This is done starting on line 84.  On line 97, we set up a ResourceConfig that tells Grizzly that it should look in the com.txmq.socketdemo.http package for REST call handlers.  We also set up a CORS filter to enable the web application to be served from a different port.
+
+The actual handlers for HTTP requests are defined in com.txmq.socketdemo.ZooRestApi.  These are set up using JAX-RS annotations as with any other JAX-RS API.  The methods themselves work a lot like the socket-based versions, reading from state or submitting SwirldsMessages to the Hashgraph to add animals.
+
 
 Shameless Plug
 --------------
