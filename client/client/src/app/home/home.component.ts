@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DefaultService } from '../../api/index';
 import { Zoo } from '../../api/model/zoo';
+import { useAnimation } from '@angular/core/src/animation/dsl';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,18 @@ export class HomeComponent implements OnInit {
   private animalSpecies:String;
 
   private zoo:Zoo;
+  
+  public get useHashgraph():string {
+    return this.service.useHashgraph.toString();
+  }
+
+  public set useHashgraph(useHashgraph:string) {
+    this.service.useHashgraph = useHashgraph === 'true';
+  }
 
   constructor(private service:DefaultService) {
     this.refreshZoo();
+    setInterval(() => this.refreshZoo(), 2000);
   }
 
   private addAnimal():void {

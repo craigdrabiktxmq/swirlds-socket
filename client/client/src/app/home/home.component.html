@@ -1,8 +1,26 @@
 <mat-card>
   <mat-card-header>
+    <mat-card-title>Select API</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>    
+    <mat-radio-group [(ngModel)]="useHashgraph">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlex>
+          <mat-radio-button value="false">Use JAX-RS REST API</mat-radio-button>
+        </div>
+        <div fxFlex>
+          <mat-radio-button value="true">Use REST API Embedded in Hashgraph</mat-radio-button>
+        </div>
+      </div>
+    </mat-radio-group>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-header>
     <mat-card-title>Add an animal to the zoo</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+  
     <div fxLayout="row">
       <div fxFlex class="field-container">
         <mat-form-field>
