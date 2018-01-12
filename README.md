@@ -58,6 +58,9 @@ The actual handlers for HTTP requests are defined in com.txmq.socketdemo.ZooRest
 
 On the client, we're using the beginnings of a framework called "Exo", which is used to set up and handle communication between the Angular client and the APIs exposed on the Hashgraph nodes.  More info on Exo is forthcoming, but for now you should look at the in-code documentation in client/client/exo/*.
 
+Licensing
+---------
+The code in this GitHub repository is made available through the MIT license (see LICENSE.txt).  The Swirlds SDK is licensed by Swirlds.  You must agree to abide by Swirlds licensing requirements to run this application.  Use of the Swirlds SDK in production requires an additional license.  Contact Swirlds for more information or to obtain a license for production use.
 
 Shameless Plug
 --------------
