@@ -23,7 +23,7 @@ import { Animal } from '../model/animal';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
-import { DistributedEndpointService } from '../../app/exo/distributed-endpoint.service';
+import { ExoDistributedEndpointService } from '../../app/exo/exo-distributed-endpoint.service';
 
 
 @Injectable()
@@ -49,7 +49,7 @@ export class DefaultService {
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, 
-                protected distributedEndpoitnService: DistributedEndpointService,
+                protected distributedEndpoitnService: ExoDistributedEndpointService,
                 @Optional()@Inject(BASE_PATH) basePath: string, 
                 @Optional() configuration: Configuration) {
         if (basePath) {

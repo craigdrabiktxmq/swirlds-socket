@@ -21,6 +21,6 @@ export class ExoConfig extends Object {
      */
     public loadConfigFrom:string;
     public defaultNodes: Array<string>;
-    public apiPath: String;
-    public endpointsServicePath: String = '/endpoints';
+    public apiPath: string;
+    public endpointsServicePath: string = '/endpoints';
 }

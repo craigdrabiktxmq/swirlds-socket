@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DefaultService } from '../../api/index';
 import { Zoo } from '../../api/model/zoo';
 import { useAnimation } from '@angular/core/src/animation/dsl';
-import { DistributedEndpointService } from '../exo/distributed-endpoint.service';
+import { ExoPlatformService } from '../exo/exo-platform.service';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit {
     this.service.useHashgraph = useHashgraph === 'true';
   }
 
-  constructor(private service:DefaultService, endpointService:DistributedEndpointService) {
-    endpointService.endpointsReady.subscribe(_ => {
+  constructor(private service:DefaultService, platform:ExoPlatformService) {
+    platform.platformReady.subscribe(_ => {
       this.refreshZoo();
       setInterval(() => this.refreshZoo(), 2000);
     });

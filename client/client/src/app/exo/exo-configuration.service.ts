@@ -10,8 +10,6 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 @Injectable()
 export class ExoConfigurationService {
 
-  public configReady:Subject<boolean> = new ReplaySubject<boolean>(1);
-
   private _config:ExoConfig;
   public get config():ExoConfig {
       return Object.assign({}, this._config);
@@ -19,7 +17,8 @@ export class ExoConfigurationService {
 
   constructor(private httpClient:HttpClient) { }
 
-  public init(config:ExoConfig) {
+  public init(config:ExoConfig):Subject<boolean> {
+    let configReady:Subject<boolean> = new Subject();
     if (config) {
       this._config = config;
       if (config.loadConfigFrom) {
@@ -34,35 +33,37 @@ export class ExoConfigurationService {
               }
             }
             this._config = newConfig;
-            this.configReady.next(true);
+            configReady.next(true);
           },
           error => {
-            this.loadConfigFromAssets();
+            this.loadConfigFromAssets(configReady);
           }
         );
       } else {
         //A config was passed in, but no value for loadConfigFrom was set.
         //Assume that the application wants to hard-code its configuration.
-        this.configReady.next(true);
+        configReady.next(true);
       }
     } else {
       //Atempt to load the config file from the assets folder
-      this.loadConfigFromAssets();
+      this.loadConfigFromAssets(configReady);
     }
+
+    return configReady;
   }
 
-  private loadConfigFromAssets():void {
+  private loadConfigFromAssets(configReady:Subject<boolean>):void {
     this.httpClient.get('/assets/exo-config.json').subscribe(
       result => {
         this._config = result as ExoConfig;
-        this.configReady.next(true);
+        configReady.next(true);
       },
       error => {
         //There's no config file.  Assume that <app root>/api is the API root
         this._config = new ExoConfig();
         this._config.defaultNodes = [window.location.origin];
         this._config.apiPath = '/api';
-        this.configReady.next(true);
+        configReady.next(true);
       }
     )
   }

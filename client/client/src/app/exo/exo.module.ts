@@ -4,14 +4,18 @@ import { ExoConfig } from './exo-config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/of";
-import { DistributedEndpointService } from './distributed-endpoint.service';
 import { ExoConfigurationService } from './exo-configuration.service';
+import { ExoPlatformService } from './exo-platform.service';
+import { ExoDistributedEndpointService } from './exo-distributed-endpoint.service';
 
 @NgModule({
   imports: [
     CommonModule,    
   ],
-  providers: [DistributedEndpointService, ExoConfigurationService]
+  providers: [
+    ExoConfigurationService, 
+    ExoPlatformService, 
+    ExoDistributedEndpointService]
 })
 export class ExoModule { 
 
@@ -32,7 +36,7 @@ export class ExoModule {
     };
   }
 
-  constructor(configService:ExoConfigurationService) {
-    configService.init(ExoModule.config);
+  constructor(platformService:ExoPlatformService) {
+    platformService.init(ExoModule.config);
   }
 }
