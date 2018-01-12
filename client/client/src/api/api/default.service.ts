@@ -23,37 +23,74 @@ import { Animal } from '../model/animal';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { ExoDistributedEndpointService } from '../../app/exo/exo-distributed-endpoint.service';
 
-
+/**
+ * This class started life as a generated endpoint based on a Swagger definition.
+ * Head over to http://swagger.io for more info on Swagger.
+ * 
+ * This service demonstrates how Angular applications can communicate with
+ * a hashgraph network in two ways.  The first way is through a traditional
+ * centralized REST API.  In this demo, it's buit on JAX-RS, also built from 
+ * a skeleton generated from a Swagger definition.  That REST API communicates
+ * with the Hashgraph through a secured socket connection and may suit 
+ * applications that don't need to be fully distributed on the back end, or 
+ * require the kinds of integrations typical of enterprise applications.
+ * 
+ * If you're building this type of application, you probably don't need Exo
+ * on the client at all.  You can make requests to your API the same way you
+ * always have, and the API isolates the client from the Hashgraph network.
+ * 
+ * The second method is to make requests against REST endpoints exposed by
+ * the Hashgraph nodes themselves.  In this scheme, the application is protected
+ * from having a middle tier that constitutes a single point of failure.  Exo
+ * manages the communication between the application and the Hashgraph network.
+ */
 @Injectable()
 export class DefaultService {
 
-    private hgBasePath = 'http://localhost:52205/HashgraphZoo/1.0.0';
+    /**
+     * Base API path for accessing the centralized JAX-RS API.
+     * In the Docker setup for this project, this URL is proxied
+     * through NGINX running on the client container to the jaxrs 
+     * container (no CORS issues).
+     */
     private jaxBasePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
-    protected basePath = this.jaxBasePath;
+    
+    /**
+     * Indicates whether or not we should query the Hashgraph directly.
+     * This property is bound to the UI radio button and lets users switch
+     * between communication methods.
+     */
+    public useHashgraph:boolean = true;
 
-    public set useHashgraph(useHashgraph:Boolean) {
-        if (useHashgraph) {
-            this.basePath = this.hgBasePath;
+    /**
+     * Hook for wiring in the distributed endpoint service to get
+     * the path to make requests from.
+     */
+    protected get basePath():string {
+        if (!this.useHashgraph) {
+            return this.jaxBasePath; 
         } else {
-            this.basePath = this.jaxBasePath;
+            return this.distributedEndpoitnService.getBaseUrl();
         }
-    }
-
-    public get useHashgraph():Boolean {
-        return this.basePath === this.hgBasePath;
     }
     
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, 
+                protected distributedEndpoitnService: ExoDistributedEndpointService,
+                @Optional()@Inject(BASE_PATH) basePath: string, 
+                @Optional() configuration: Configuration) {
         if (basePath) {
-            this.basePath = basePath;
+            //TODO:
+            //this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
+            //TODO
+            //this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -70,7 +107,6 @@ export class DefaultService {
         }
         return false;
     }
-
 
     /**
      * adds an animal to the zoo

@@ -10,6 +10,7 @@
  * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -22,8 +23,10 @@ import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
 import com.txmq.socketdemo.SocketDemoState;
+import com.txmq.socketdemo.SwirldsTransactionType;
 import com.txmq.socketdemo.http.CORSFilter;
 import com.txmq.swirldsframework.core.PlatformLocator;
+import com.txmq.swirldsframework.messaging.SwirldsMessage;
 import com.txmq.swirldsframework.messaging.TransactionServer;
 
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -92,6 +95,15 @@ public class SocketDemoMain implements SwirldMain {
 		System.out.println("Attempting to start Grizzly on " + baseUri);
 		HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
 	
+		//Announce our REST service to the rest of the participants
+		try {
+			this.platform.createTransaction(
+					new SwirldsMessage(SwirldsTransactionType.ANNOUNCE_NODE, baseUri.toString()).serialize(), null
+			);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		while (true) {
 			try {

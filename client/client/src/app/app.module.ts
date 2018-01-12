@@ -8,11 +8,28 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ApiModule, DefaultService } from '../api/index';
 import { FormsModule } from '@angular/forms';
+import { ExoModule } from './exo/exo.module';
+import { ExoConfig } from './exo/exo-config';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home' }
-]
+];
+
+/*
+const exoConfig:ExoConfig = {
+  loadConfigFrom: undefined,
+  defaultNodes: ['http://localhost:52204', 'http://localhost:52207'],
+  apiPath: '/HashgraphZoo/1.0.0',
+  endpointsServicePath: '/endpoints'
+} as ExoConfig;
+*/
+const exoConfig:ExoConfig = {
+  loadConfigFrom: '/assets/exo-config.json',
+  defaultNodes: ['http://localhost:52206'],
+  apiPath: null,
+  endpointsServicePath: null
+} as ExoConfig;
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +47,8 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatRadioModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ExoModule.forRoot(exoConfig)
   ],
   providers: [DefaultService],
   bootstrap: [AppComponent]

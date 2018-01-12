@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DefaultService } from '../../api/index';
 import { Zoo } from '../../api/model/zoo';
 import { useAnimation } from '@angular/core/src/animation/dsl';
+import { ExoPlatformService } from '../exo/exo-platform.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,10 @@ import { useAnimation } from '@angular/core/src/animation/dsl';
 })
 export class HomeComponent implements OnInit {
 
-  private animalName:String = '';
-  private animalSpecies:String;
+  public animalName:String = '';
+  public animalSpecies:String;
 
-  private zoo:Zoo;
+  public zoo:Zoo;
   
   public get useHashgraph():string {
     return this.service.useHashgraph.toString();
@@ -23,9 +24,11 @@ export class HomeComponent implements OnInit {
     this.service.useHashgraph = useHashgraph === 'true';
   }
 
-  constructor(private service:DefaultService) {
-    this.refreshZoo();
-    setInterval(() => this.refreshZoo(), 2000);
+  constructor(private service:DefaultService, platform:ExoPlatformService) {
+    platform.platformReady.subscribe(_ => {
+      this.refreshZoo();
+      setInterval(() => this.refreshZoo(), 2000);
+    });
   }
 
   private addAnimal():void {
