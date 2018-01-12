@@ -10,9 +10,7 @@ Running the Application
 1. Install docker
 2. Download the Hashgraph SDK.  The license doesn't explicitly grant permission to redistribute so the files aren't committed directly in the project.
 3. Clone the repository.
-4. Copy the following from the Hashgraph SDK:
-⋅⋅* Copy swirlds.jar to /hashgraph workspace/hashgraph
-⋅⋅* Copy the data directory to /hashgraph workspace/hashgraph
+4. Copy swirlds.jar and the data directory from the SDK to /hashgraph workspace/hashgraph
 5. Run `docker-compose up` from the command line
 6. Wait for docker to build all of the containers.  Eventually you'll see a message similar to `jaxrs_1      | [INFO] Started Jetty Server`.  The application is now up and running.
 6. Open a browser and navigate to http://localhost
