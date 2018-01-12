@@ -41,7 +41,7 @@ export class DefaultService {
         if (!this.useHashgraph) {
             return this.jaxBasePath; 
         } else {
-            return this.distributedEndpoitnService.getBaseUrl() + this.apiRootPath;
+            return this.distributedEndpoitnService.getBaseUrl();
         }
     }
     

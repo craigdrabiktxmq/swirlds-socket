@@ -15,7 +15,8 @@ import { ExoDistributedEndpointService } from './exo-distributed-endpoint.servic
   providers: [
     ExoConfigurationService, 
     ExoPlatformService, 
-    ExoDistributedEndpointService]
+    ExoDistributedEndpointService
+  ]
 })
 export class ExoModule { 
 
