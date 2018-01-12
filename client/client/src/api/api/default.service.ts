@@ -25,17 +25,48 @@ import { Configuration }                                     from '../configurat
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { ExoDistributedEndpointService } from '../../app/exo/exo-distributed-endpoint.service';
 
-
+/**
+ * This class started life as a generated endpoint based on a Swagger definition.
+ * Head over to http://swagger.io for more info on Swagger.
+ * 
+ * This service demonstrates how Angular applications can communicate with
+ * a hashgraph network in two ways.  The first way is through a traditional
+ * centralized REST API.  In this demo, it's buit on JAX-RS, also built from 
+ * a skeleton generated from a Swagger definition.  That REST API communicates
+ * with the Hashgraph through a secured socket connection and may suit 
+ * applications that don't need to be fully distributed on the back end, or 
+ * require the kinds of integrations typical of enterprise applications.
+ * 
+ * If you're building this type of application, you probably don't need Exo
+ * on the client at all.  You can make requests to your API the same way you
+ * always have, and the API isolates the client from the Hashgraph network.
+ * 
+ * The second method is to make requests against REST endpoints exposed by
+ * the Hashgraph nodes themselves.  In this scheme, the application is protected
+ * from having a middle tier that constitutes a single point of failure.  Exo
+ * manages the communication between the application and the Hashgraph network.
+ */
 @Injectable()
 export class DefaultService {
 
-    private apiRootPath:string = '/HashgraphZoo/1.0.0';
-    private jaxBasePath = 'http://localhost:8080' + this.apiRootPath;
+    /**
+     * Base API path for accessing the centralized JAX-RS API.
+     * In the Docker setup for this project, this URL is proxied
+     * through NGINX running on the client container to the jaxrs 
+     * container (no CORS issues).
+     */
+    private jaxBasePath = 'http://localhost:8080/HashgraphZoo/1.0.0';
     
+    /**
+     * Indicates whether or not we should query the Hashgraph directly.
+     * This property is bound to the UI radio button and lets users switch
+     * between communication methods.
+     */
     public useHashgraph:boolean = true;
 
     /**
-     * Hook for wiring in the distributed endpoint service
+     * Hook for wiring in the distributed endpoint service to get
+     * the path to make requests from.
      */
     protected get basePath():string {
         if (!this.useHashgraph) {
