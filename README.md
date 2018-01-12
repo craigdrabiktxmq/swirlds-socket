@@ -57,7 +57,7 @@ You are welcome to reuse/modify this code pursuant to the terms of the license f
 
 No warranty or support is expressed or implied, use at your own risk.
 
-Here's the catch:  I don't know what's coming in the near term from Swirlds.  The public SDK only runs through the Swirlds browser, which I imagine will be changed at some point.  I don't know whether or not Swirlds has a connectivity paradigm in the works, or when it would arrive.  This demonstration could certainly be developed into a framework for enabling communication between Swirlds and other Java applications, and it could be adapted to allow web clients to directly message a Swirld via web socket.  It is probably also possible to expose actions on the Swirld directly via REST, though I haven't experimented with any of that yet.  The point is, I don't know how much development this is going to see, because it could all be obsolete tomorrow.  Having said that, I'm willing to look at suggestions and pull requests if someone wants to contribute to this code.
+Here's the catch:  I don't know what's coming in the near term from Swirlds.  The public SDK only runs through the Swirlds browser, which I imagine will be changed at some point.  I don't know whether or not Swirlds has a connectivity paradigm in the works, or when it would arrive.  This demonstration could certainly be developed into a framework for enabling communication between Swirlds and other Java or Javascript applications.  The point is, I don't know how much development this is going to see, because it could all be obsolete tomorrow.  Having said that, I'm willing to look at suggestions and pull requests if someone wants to contribute to this code.
 
 Licensing
 ---------
