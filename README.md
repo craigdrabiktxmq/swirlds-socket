@@ -10,9 +10,7 @@ Running the Application
 1. Install docker
 2. Download the Hashgraph SDK.  The license doesn't explicitly grant permission to redistribute so the files aren't committed directly in the project.
 3. Clone the repository.
-4. Copy the following from the Hashgraph SDK:
-⋅⋅* Copy swirlds.jar to /hashgraph workspace/hashgraph
-⋅⋅* Copy the data directory to /hashgraph workspace/hashgraph
+4. Copy swirlds.jar and the data directory from the SDK to /hashgraph workspace/hashgraph
 5. Run `docker-compose up` from the command line
 6. Wait for docker to build all of the containers.  Eventually you'll see a message similar to `jaxrs_1      | [INFO] Started Jetty Server`.  The application is now up and running.
 6. Open a browser and navigate to http://localhost
@@ -60,6 +58,9 @@ The actual handlers for HTTP requests are defined in com.txmq.socketdemo.ZooRest
 
 On the client, we're using the beginnings of a framework called "Exo", which is used to set up and handle communication between the Angular client and the APIs exposed on the Hashgraph nodes.  More info on Exo is forthcoming, but for now you should look at the in-code documentation in client/client/exo/*.
 
+Licensing
+---------
+The code in this GitHub repository is made available through the MIT license (see LICENSE.txt).  The Swirlds SDK is licensed by Swirlds.  You must agree to abide by Swirlds licensing requirements to run this application.  Use of the Swirlds SDK in production requires an additional license.  Contact Swirlds for more information or to obtain a license for production use.
 
 Shameless Plug
 --------------
