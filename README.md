@@ -46,6 +46,8 @@ In the Hashgraph application code, the Grizzly REST service works as follows:
 
 The actual handlers for HTTP requests are defined in com.txmq.socketdemo.ZooRestApi.  These are set up using JAX-RS annotations as with any other JAX-RS API.  The methods themselves work a lot like the socket-based versions, reading from state or submitting SwirldsMessages to the Hashgraph to add animals.
 
+On the client, we're using the beginnings of a framework called "Exo", which is used to set up and handle communication between the Angular client and the APIs exposed on the Hashgraph nodes.  More info on Exo is forthcoming, but for now you should look at the in-code documentation in client/client/exo/*.
+
 
 Shameless Plug
 --------------
