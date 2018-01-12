@@ -5,11 +5,23 @@ This project contains a demonstration of a web application communicating with a 
 - Through a JAX-RS based REST API.  The JAX-RS application communicates with the Swirld via a TLS-secured, authenticated socket.  
 - Directly to the Swirld via a REST API embedded in the Swirld itself.
 
-To run the demo, install Docker, change into the root directory of the project (where the docker-compose.yml file lives) and run 
+Running the Application
+-----------------------
+1. Install docker
+2. Download the Hashgraph SDK.  The license doesn't explicitly grant permission to redistribute so the files aren't committed directly in the project.
+3. Clone the repository.
+4. Copy the following from the Hashgraph SDK:
+⋅⋅* Copy swirlds.jar to /hashgraph workspace/hashgraph
+⋅⋅* Copy the data directory to /hashgraph workspace/hashgraph
+5. Run `docker-compose up` from the command line
+6. Wait for docker to build all of the containers.  Eventually you'll see a message similar to `jaxrs_1      | [INFO] Started Jetty Server`.  The application is now up and running.
+6. Open a browser and navigate to http://localhost
 
-`docker-compose up`
+What's going on here?
+---------------------
+When the application loads, it will start asking for the state of the zoo every two seconds.  At startup, the application is configured to query the Hashgraph directly.  If you open the browser debugging tools and watch the requests to the zoo endpoint, you'll see that each call is sent to a different port, which routes it to a specific Hashgraph node.  The application asks the Hashgraph for a list of active nodes, then cycles through the nodes on each request.
 
-Once each Docker container is up and running, you can point your browser at "localhost" and load up the zoo application.
+If you change to "Use JAX-RS REST API" using the radio buttons at the top of the app, you'll see that requests are then made to port 8080, which is routed to a JAX-RS web API running independent from the Hashgraph.  The JAX-RS tier receives requests from the browser and routes them to the Hashgraph, then returns the result to the browser.
 
 How the JAX-RS/Hashgraph Integration Works
 ------------------------------------------
