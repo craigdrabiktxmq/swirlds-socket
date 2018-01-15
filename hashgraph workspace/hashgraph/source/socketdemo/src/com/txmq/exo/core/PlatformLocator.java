@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.core;
+package com.txmq.exo.core;
 
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;

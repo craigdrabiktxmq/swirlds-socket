@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.messaging;
+package com.txmq.exo.messaging.socket;
 
 import java.io.FileInputStream;
 import java.io.IOException;

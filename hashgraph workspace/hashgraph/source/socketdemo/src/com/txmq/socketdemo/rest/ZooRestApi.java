@@ -1,4 +1,4 @@
-package com.txmq.socketdemo.http;
+package com.txmq.socketdemo.rest;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.txmq.exo.core.PlatformLocator;
+import com.txmq.exo.messaging.SwirldsMessage;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.socketdemo.SwirldsTransactionType;
-import com.txmq.swirldsframework.core.PlatformLocator;
-import com.txmq.swirldsframework.messaging.SwirldsMessage;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 import io.swagger.model.Animal;
 import io.swagger.model.Zoo;
@@ -35,7 +35,7 @@ public class ZooRestApi {
 	@Path("/zoo/animals")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addAnimal(Animal animal) {
-		SwirldsMessage message = new SwirldsMessage(SwirldsTransactionType.ADD_ANIMAL, animal);
+		SwirldsMessage message = new SwirldsMessage(SocketDemoTransactionTypes.ADD_ANIMAL, animal);
 		
 		try {
 			PlatformLocator.getPlatform().createTransaction(message.serialize(), null);

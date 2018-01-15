@@ -28,7 +28,7 @@ import com.swirlds.platform.FastCopyable;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
 import com.swirlds.platform.Utilities;
-import com.txmq.swirldsframework.messaging.SwirldsMessage;
+import com.txmq.exo.messaging.SwirldsMessage;
 
 import io.swagger.model.Animal;
 

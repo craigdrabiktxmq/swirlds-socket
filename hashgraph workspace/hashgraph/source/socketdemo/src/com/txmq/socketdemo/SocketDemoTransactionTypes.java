@@ -1,6 +1,6 @@
 package com.txmq.socketdemo;
 
-public enum SwirldsTransactionType {
+public enum SocketDemoTransactionTypes {
 	ACKNOWLEDGE,
 	ANNOUNCE_NODE,
 	GET_ZOO,

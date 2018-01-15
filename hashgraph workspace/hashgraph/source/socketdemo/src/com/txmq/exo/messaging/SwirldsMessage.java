@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.messaging;
+package com.txmq.exo.messaging;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,10 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import com.txmq.socketdemo.SwirldsTransactionType;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 public class SwirldsMessage implements Serializable {
-	public SwirldsTransactionType transactionType;
+	public SocketDemoTransactionTypes transactionType;
 	public Serializable payload;
 	
 	public SwirldsMessage() {
@@ -21,7 +21,7 @@ public class SwirldsMessage implements Serializable {
 	 * Initialize this message with the supplied transaction type.
 	 * @param transactionType
 	 */
-	public SwirldsMessage(SwirldsTransactionType transactionType) {
+	public SwirldsMessage(SocketDemoTransactionTypes transactionType) {
 		super();
 		this.transactionType = transactionType;				
 	}
@@ -30,7 +30,7 @@ public class SwirldsMessage implements Serializable {
 	 * Initialize this message with the supplied transaction type and payload.
 	 * @param transactionType
 	 */
-	public SwirldsMessage(SwirldsTransactionType transactionType, Serializable payload) {
+	public SwirldsMessage(SocketDemoTransactionTypes transactionType, Serializable payload) {
 		super();
 		this.transactionType = transactionType;				
 		this.payload = payload;

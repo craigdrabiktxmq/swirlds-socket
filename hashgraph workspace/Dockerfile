@@ -7,7 +7,7 @@ FROM maven:3.3-jdk-8 AS hg-build
 
 ADD ./hashgraph /opt/maven
 WORKDIR /opt/maven/source/socketdemo
-RUN mvn install
+RUN mvn install -e
 
 FROM hg-build
 EXPOSE 51200-51299

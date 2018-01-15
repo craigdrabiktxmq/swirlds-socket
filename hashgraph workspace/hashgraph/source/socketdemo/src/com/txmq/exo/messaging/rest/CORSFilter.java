@@ -1,4 +1,4 @@
-package com.txmq.socketdemo.http;
+package com.txmq.exo.messaging.rest;
 
 import java.io.IOException;
 

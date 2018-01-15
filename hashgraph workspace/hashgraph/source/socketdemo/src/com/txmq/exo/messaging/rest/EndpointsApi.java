@@ -1,4 +1,4 @@
-package com.txmq.socketdemo.http;
+package com.txmq.exo.messaging.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -6,8 +6,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.txmq.exo.core.PlatformLocator;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.swirldsframework.core.PlatformLocator;
 
 @Path("/HashgraphZoo/1.0.0")
 public class EndpointsApi {

@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.messaging;
+package com.txmq.exo.messaging.socket;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,8 +8,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import com.swirlds.platform.Platform;
+import com.txmq.exo.messaging.SwirldsMessage;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.socketdemo.SwirldsTransactionType;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 import io.swagger.model.Zoo;
 
@@ -37,7 +38,7 @@ public class TransactionServerConnection extends Thread {
 				switch(message.transactionType) {
 					case ACKNOWLEDGE:
 						//We shouldn't receive this from the client.  If we do, just send it back
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType = SocketDemoTransactionTypes.ACKNOWLEDGE;
 						break;
 					case GET_ZOO:
 						//This is a read transaction, so no need to call Platform.createTransaction().
@@ -47,7 +48,7 @@ public class TransactionServerConnection extends Thread {
 						zoo.setTigers(state.getTigers());
 						zoo.setBears(state.getBears());
 						
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType = SocketDemoTransactionTypes.ACKNOWLEDGE;
 						response.payload = zoo;
 						break;
 					default:
@@ -58,7 +59,7 @@ public class TransactionServerConnection extends Thread {
 						out.flush();
 						this.platform.createTransaction(bytesOut.toByteArray(), null);
 						
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType = SocketDemoTransactionTypes.ACKNOWLEDGE;
 				}
 				
 				writer.writeObject(response);					
