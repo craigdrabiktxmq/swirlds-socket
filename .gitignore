@@ -17,6 +17,6 @@ RemoteSystemsTempFiles
 **/.settings
 .recommenders
 **/.recommenders
-hashgraph\ workspace/hashgraph/data/apps
-hashgraph\ workspace/hashgraph/data/lib
+hashgraph\ workspace/hashgraph/data
+hashgraph\ workspace/hashgraph/swirlds.jar
 **/target
