@@ -22,12 +22,12 @@ import com.swirlds.platform.Console;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldMain;
 import com.swirlds.platform.SwirldState;
+import com.txmq.exo.core.PlatformLocator;
+import com.txmq.exo.messaging.SwirldsMessage;
+import com.txmq.exo.messaging.rest.CORSFilter;
+import com.txmq.exo.messaging.socket.TransactionServer;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.socketdemo.SwirldsTransactionType;
-import com.txmq.socketdemo.http.CORSFilter;
-import com.txmq.swirldsframework.core.PlatformLocator;
-import com.txmq.swirldsframework.messaging.SwirldsMessage;
-import com.txmq.swirldsframework.messaging.TransactionServer;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -88,7 +88,8 @@ public class SocketDemoMain implements SwirldMain {
 		//URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
 		URI baseUri = UriBuilder.fromUri("http://0.0.0.0").port(port).build();
 		ResourceConfig config = new ResourceConfig()
-				.packages("com.txmq.socketdemo.http")
+				.packages("com.txmq.exo.messaging.rest")
+				.packages("com.txmq.socketdemo.rest")
 				.register(new CORSFilter())
 				.register(JacksonFeature.class);
 
@@ -98,7 +99,11 @@ public class SocketDemoMain implements SwirldMain {
 		//Announce our REST service to the rest of the participants
 		try {
 			this.platform.createTransaction(
-					new SwirldsMessage(SwirldsTransactionType.ANNOUNCE_NODE, baseUri.toString()).serialize(), null
+				new SwirldsMessage(
+					new SocketDemoTransactionTypes(SocketDemoTransactionTypes.ANNOUNCE_NODE), 
+					baseUri.toString()
+				).serialize(), 
+				null
 			);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

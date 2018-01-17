@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.messaging;
+package com.txmq.exo.messaging.socket;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,8 +8,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import com.swirlds.platform.Platform;
+import com.txmq.exo.messaging.ExoTransactionType;
+import com.txmq.exo.messaging.SwirldsMessage;
 import com.txmq.socketdemo.SocketDemoState;
-import com.txmq.socketdemo.SwirldsTransactionType;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 import io.swagger.model.Zoo;
 
@@ -34,12 +36,12 @@ public class TransactionServerConnection extends Thread {
 				message = (SwirldsMessage) tmp; 
 				SocketDemoState state = (SocketDemoState) this.platform.getState();
 				
-				switch(message.transactionType) {
-					case ACKNOWLEDGE:
+				switch(message.transactionType.getValue()) {
+					case SocketDemoTransactionTypes.ACKNOWLEDGE:
 						//We shouldn't receive this from the client.  If we do, just send it back
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType.setValue(SocketDemoTransactionTypes.ACKNOWLEDGE);
 						break;
-					case GET_ZOO:
+					case SocketDemoTransactionTypes.GET_ZOO:
 						//This is a read transaction, so no need to call Platform.createTransaction().
 						//We can read what we need out of state and return it.
 						Zoo zoo = new Zoo();
@@ -47,7 +49,7 @@ public class TransactionServerConnection extends Thread {
 						zoo.setTigers(state.getTigers());
 						zoo.setBears(state.getBears());
 						
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType.setValue(ExoTransactionType.ACKNOWLEDGE);
 						response.payload = zoo;
 						break;
 					default:
@@ -58,7 +60,7 @@ public class TransactionServerConnection extends Thread {
 						out.flush();
 						this.platform.createTransaction(bytesOut.toByteArray(), null);
 						
-						response.transactionType = SwirldsTransactionType.ACKNOWLEDGE;
+						response.transactionType.setValue(ExoTransactionType.ACKNOWLEDGE);						
 				}
 				
 				writer.writeObject(response);					

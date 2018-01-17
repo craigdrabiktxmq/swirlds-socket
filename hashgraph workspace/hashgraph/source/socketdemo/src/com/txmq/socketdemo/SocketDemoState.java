@@ -28,7 +28,7 @@ import com.swirlds.platform.FastCopyable;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
 import com.swirlds.platform.Utilities;
-import com.txmq.swirldsframework.messaging.SwirldsMessage;
+import com.txmq.exo.messaging.SwirldsMessage;
 
 import io.swagger.model.Animal;
 
@@ -128,8 +128,8 @@ public class SocketDemoState implements SwirldState {
 		
 		try {
 			SwirldsMessage message = SwirldsMessage.deserialize(transaction);
-			switch (message.transactionType) {
-				case ADD_ANIMAL:
+			switch (message.transactionType.getValue()) {
+				case SocketDemoTransactionTypes.ADD_ANIMAL:
 					Animal animal = (Animal) message.payload;
 					switch (animal.getSpecies()) {
 						case "lion":
@@ -143,7 +143,7 @@ public class SocketDemoState implements SwirldState {
 							break;
 					}						
 					break;
-				case ANNOUNCE_NODE:
+				case SocketDemoTransactionTypes.ANNOUNCE_NODE:
 					this.endpoints.add((String) message.payload);
 					break;
 			}			
