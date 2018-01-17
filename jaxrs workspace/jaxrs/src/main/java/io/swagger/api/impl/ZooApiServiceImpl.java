@@ -12,9 +12,9 @@ import java.io.InputStream;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
-import com.txmq.socketdemo.SwirldsTransactionType;
-import com.txmq.swirldsframework.messaging.SwirldsAdaptor;
-import com.txmq.swirldsframework.messaging.SwirldsMessage;
+import com.txmq.exo.messaging.SwirldsAdaptor;
+import com.txmq.exo.messaging.SwirldsMessage;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -28,7 +28,7 @@ public class ZooApiServiceImpl extends ZooApiService {
 				|| animal.getSpecies().equals("bear")) {
 
 			SwirldsAdaptor adaptor = new SwirldsAdaptor();
-			adaptor.sendTransaction(SwirldsTransactionType.ADD_ANIMAL, animal);
+			adaptor.sendTransaction(new SocketDemoTransactionTypes(SocketDemoTransactionTypes.ADD_ANIMAL), animal);
 			return Response.ok().entity(animal).build();
 		} else {
 			return Response.serverError().build();
@@ -38,8 +38,7 @@ public class ZooApiServiceImpl extends ZooApiService {
 	@Override
 	public Response getZoo(SecurityContext securityContext) throws NotFoundException {
 		SwirldsAdaptor adaptor = new SwirldsAdaptor();
-		SwirldsMessage response = adaptor.sendTransaction(SwirldsTransactionType.GET_ZOO, null);
-		System.out.println(response.payload);
+		SwirldsMessage response = adaptor.sendTransaction(new SocketDemoTransactionTypes(SocketDemoTransactionTypes.GET_ZOO), null);
 		return Response.ok().entity(response.payload).build();
 	}
 }

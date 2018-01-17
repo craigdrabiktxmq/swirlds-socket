@@ -128,8 +128,8 @@ public class SocketDemoState implements SwirldState {
 		
 		try {
 			SwirldsMessage message = SwirldsMessage.deserialize(transaction);
-			switch (message.transactionType) {
-				case ADD_ANIMAL:
+			switch (message.transactionType.getValue()) {
+				case SocketDemoTransactionTypes.ADD_ANIMAL:
 					Animal animal = (Animal) message.payload;
 					switch (animal.getSpecies()) {
 						case "lion":
@@ -143,7 +143,7 @@ public class SocketDemoState implements SwirldState {
 							break;
 					}						
 					break;
-				case ANNOUNCE_NODE:
+				case SocketDemoTransactionTypes.ANNOUNCE_NODE:
 					this.endpoints.add((String) message.payload);
 					break;
 			}			

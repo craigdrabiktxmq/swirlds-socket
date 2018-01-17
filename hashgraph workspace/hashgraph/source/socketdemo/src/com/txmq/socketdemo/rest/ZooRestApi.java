@@ -35,7 +35,7 @@ public class ZooRestApi {
 	@Path("/zoo/animals")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addAnimal(Animal animal) {
-		SwirldsMessage message = new SwirldsMessage(SocketDemoTransactionTypes.ADD_ANIMAL, animal);
+		SwirldsMessage message = new SwirldsMessage(new SocketDemoTransactionTypes(SocketDemoTransactionTypes.ADD_ANIMAL), animal);
 		
 		try {
 			PlatformLocator.getPlatform().createTransaction(message.serialize(), null);

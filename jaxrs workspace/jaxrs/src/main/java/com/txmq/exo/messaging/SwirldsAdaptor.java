@@ -1,4 +1,4 @@
-package com.txmq.swirldsframework.messaging;
+package com.txmq.exo.messaging;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -23,7 +23,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
-import com.txmq.socketdemo.SwirldsTransactionType;
+import com.txmq.socketdemo.SocketDemoTransactionTypes;
 
 public class SwirldsAdaptor {
 	//public static final String HOST = "0.0.0.0";
@@ -74,7 +74,7 @@ public class SwirldsAdaptor {
 		}
 	}
 	
-	public SwirldsMessage sendTransaction(SwirldsTransactionType transactionType, Serializable payload) {
+	public SwirldsMessage sendTransaction(SocketDemoTransactionTypes transactionType, Serializable payload) {
 		if (this.socket != null && this.socket.isConnected()) {
 			try {
 				//PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);

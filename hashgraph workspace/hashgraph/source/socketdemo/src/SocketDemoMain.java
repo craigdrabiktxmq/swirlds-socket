@@ -88,7 +88,8 @@ public class SocketDemoMain implements SwirldMain {
 		//URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
 		URI baseUri = UriBuilder.fromUri("http://0.0.0.0").port(port).build();
 		ResourceConfig config = new ResourceConfig()
-				.packages("com.txmq.socketdemo.http")
+				.packages("com.txmq.exo.messaging.rest")
+				.packages("com.txmq.socketdemo.rest")
 				.register(new CORSFilter())
 				.register(JacksonFeature.class);
 
@@ -98,7 +99,11 @@ public class SocketDemoMain implements SwirldMain {
 		//Announce our REST service to the rest of the participants
 		try {
 			this.platform.createTransaction(
-					new SwirldsMessage(SocketDemoTransactionTypes.ANNOUNCE_NODE, baseUri.toString()).serialize(), null
+				new SwirldsMessage(
+					new SocketDemoTransactionTypes(SocketDemoTransactionTypes.ANNOUNCE_NODE), 
+					baseUri.toString()
+				).serialize(), 
+				null
 			);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
